@@ -1,8 +1,7 @@
 package decoding
 
 import (
-	"io/ioutil"
-	"log"
+		"log"
 	"os"
 	"testing"
 )
@@ -13,12 +12,12 @@ const (
 
 func TestBase64ToFile(t *testing.T) {
 	
-	f, err := ioutil.TempFile("./", "test.txt")
+	f, err := os.CreateTemp("./", "test.txt")
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	defer os.Remove(f.Name())
+	defer func() { _ = os.Remove(f.Name()) }()
 
 	type args struct {
 		b64 string
